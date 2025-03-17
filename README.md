@@ -11,7 +11,7 @@
 
 # Login Page
 
-![Scrum 1](public/images/logo.png)
+![Scrum 1](public/images/progress1.png)
 
 Pada progress yang pertama ialah login page yang bisa diakses untuk bidan / admin untuk masuk ke akunnya agar dapat mengakses fitur / konten yang disediakan
 

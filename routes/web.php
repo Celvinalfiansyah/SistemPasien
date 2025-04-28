@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DaftarPasienController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -14,3 +15,8 @@ Route::post('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::resource('/', DaftarPasienController::class);
+Route::get('daftar-pasien', function () {
+    return redirect('/daftar-pasien');
+});

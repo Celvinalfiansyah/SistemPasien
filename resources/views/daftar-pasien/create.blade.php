@@ -13,26 +13,26 @@
         <input type="text" name="nama_pasien" required><br><br>
 
         <label>Alamat:</label><br>
-        <textarea name="alamat_pasien" required></textarea><br><br>
+        <textarea name="alamat" required></textarea><br><br>
 
         <label>Tanggal Lahir</label><br>
-        <textarea name="tanggal_lahir_pasien" required></textarea><br><br>
+        <input type="date" name="tanggal_lahir" required><br><br>
 
         <label>No Hp:</label><br>
-        <input type="text" name="no_hp_pasien" required><br><br>
+        <input type="text" name="no_telepon" required><br><br>
 
         <label>Jenis Kelamin:</label><br>
         <select name="jenis_kelamin" required>
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select><br><br>
         
         <label>Tanggal Daftar</label><br>
-        <textarea name="tanggal_daftar" required></textarea><br><br>
-        </select><br><br>
+        <input type="datetime-local" name="tanggal_daftar" required>
 
         <button type="submit">Simpan</button>
+        
+        <a href="{{ route('daftar-pasien.index') }}">Kembali ke Daftar Pasien</a>
     </form>
-
-    <a href="{{ route('daftar-pasien.index') }}">Kembali ke Daftar Pasien</a>
 </body>
 </html>

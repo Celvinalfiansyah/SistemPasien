@@ -15,21 +15,21 @@
         <input type="text" name="nama_pasien" value="{{ $pasien->nama_pasien }}" required><br><br>
 
         <label>Alamat:</label><br>
-        <textarea name="alamat_pasien" required>{{ $pasien->alamat_pasien }}</textarea><br><br>
+        <textarea name="alamat" required>{{ $pasien->alamat }}</textarea><br><br>
 
         <label>Tanggal Lahir:</label><br>
-        <textarea name="tanggal_lahir_pasien" required>{{$pasien->tanggal_lahir_pasien}}</textarea><br><br>
+        <textarea name="tanggal_lahir" required>{{$pasien->tanggal_lahir}}</textarea><br><br>
 
         <label>No Hp:</label><br>
-        <input type="text" name="no_hp_pasien" value="{{ $pasien->no_hp_pasien }}" required><br><br>
+        <input type="text" name="no_telepon" value="{{ $pasien->no_telepon }}" required><br><br>
 
         <label>Jenis Kelamin:</label><br>
         <select name="jenis_kelamin" required>
-            <option value="L" {{ $pasien->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
-            <option value="P" {{ $pasien->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
+            <option value="Laki-laki" {{ $pasien->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+            <option value="Perempuan" {{ $pasien->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
         
         <label>Tanggal Daftar:</label><br>
-        <textarea name="tanggal_daftar" required>{{$pasien->tanggal_daftar}}</textarea><br><br>
+        <input type="datetime-local" name="tanggal_daftar" value="{{ $pasien->tanggal_daftar->format('Y-m-d\TH:i') }}"><br><br>
 
         </select><br><br>
 

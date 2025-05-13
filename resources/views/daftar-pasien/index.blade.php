@@ -21,16 +21,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($pasien as $p)
+            @foreach($pasiens as $p)
             <tr>
                 <td>{{ $p->nama_pasien }}</td>
-                <td>{{ $p->alamat_pasien }}</td>
-                <td>{{ $p->tanggal_lahir_pasien}}</td>
-                <td>{{ $p->no_hp_pasien }}</td>
+                <td>{{ $p->alamat }}</td>
+                <td>{{ $p->tanggal_lahir->format('d-m-Y') }}</td>
+                <td>{{ $p->no_telepon }}</td>
                 <td>{{ $p->jenis_kelamin }}</td>
                 <td>{{ $p->tanggal_daftar}}</td>
                 <td>
-                    <a href="{{ route('daftar-pasien.edit', $p->id) }}">Edit</a>
+                    <a href="{{ route('daftar-pasien.edit', $p) }}">Edit</a>
                     <form action="{{ route('daftar-pasien.destroy', $p->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')

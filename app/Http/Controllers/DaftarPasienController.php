@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use app\Models\DaftarPasien;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
 
@@ -9,12 +9,13 @@ class DaftarPasienController extends Controller
 {
     public function index()
     {
-        $pasien=DaftarPasien::all();
-        return view('daftar_pasien.index', compact('pasien'));
+        $pasiens=Pasien::all();
+        return view('daftar-pasien.index', compact('pasiens'));
     }
+
     public function create()
     {
-        return view('daftar_pasien.create');
+        return view('daftar-pasien.create');
     }
     public function store(Request $request)
     {
@@ -22,14 +23,18 @@ class DaftarPasienController extends Controller
             'nama_pasien'=>'required|string|max:25',
             'alamat'=>'required|string',
             'tanggal_lahir'=>'required|date',
-            'no_hp'=>'required|string|max:15',
-            'jenis_kelamin'=>'required|in:P\L,P',
+            'no_telepon'=>'required|string|max:15',
+            'jenis_kelamin'=>'required|in:Laki-laki,Perempuan',
             'tanggal_daftar'=>'required|date',
         ]);
 
-        DaftarPasien::create($request->all());
+        Pasien::create($request->all());
 
-        return redirect()->route('daftar-pasien.index');
+        return redirect()->route('daftar-pasien.index')->with('success', 'Pasien berhasil ditambahkan.');
+    }
+
+    public function edit(Pasien $pasien) {
+        return view('daftar-pasien.edit', compact('pasien'));
     }
 
     public function update(Request $request, $id)
@@ -38,19 +43,19 @@ class DaftarPasienController extends Controller
             'nama_pasien'=>'required|string|max:255',
             'alamat'=>'required|string',
             'tanggal_lahir'=>'required|date',
-            'no_hp'=>'required|string|max:15',
-            'jenis_kelamin'=>'required|in:L,P',
+            'no_telepon'=>'required|string|max:15',
+            'jenis_kelamin'=>'required|in:Laki-laki,Perempuan',
             'tanggal_daftar'=>'required|date',
         ]);
 
-        $pasien=DaftarPasien::findOrFail($id);
+        $pasien=Pasien::findOrFail($id);
         $pasien->update($request->all());
-        return redirect()->route('daftar-pasien.index');
+        return redirect()->route('daftar-pasien.index')->with('success', 'Data pasien berhasil diperbarui');
     }
-    public function detory($id)
+    public function destroy($id)
     {
-        $pasien=DaftarPasien::findOrFail($id);
+        $pasien=Pasien::findOrFail($id);
         $pasien->delete();
-        return redirect()->route('daftar-pasien.index');
+        return redirect()->route('daftar-pasien.index')->with('success', 'Pasien berhasil dihapus');
     }
 }

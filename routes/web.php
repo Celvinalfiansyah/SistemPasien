@@ -16,7 +16,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('/', DaftarPasienController::class);
-Route::get('daftar-pasien', function () {
-    return redirect('/daftar-pasien');
-});
+// Route::resource('/', DaftarPasienController::class);
+// Route::get('daftar-pasien', function () {
+//     return redirect('/daftar-pasien');
+// });
+
+Route::resource('daftar-pasien', DaftarPasienController::class)
+     ->parameters(['daftar-pasien' => 'pasien']);

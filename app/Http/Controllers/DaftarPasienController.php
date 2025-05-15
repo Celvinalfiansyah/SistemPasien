@@ -3,59 +3,96 @@
 namespace App\Http\Controllers;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades;
 
 class DaftarPasienController extends Controller
 {
-    public function index()
+    /**
+     * Tampilkan daftar pasien, dengan fitur search, sort A–Z, dan pagination.
+     */
+    public function index(Request $request)
     {
-        $pasiens=Pasien::all();
-        return view('daftar-pasien.index', compact('pasiens'));
+        $search = $request->input('cari');
+
+        $pasiens = Pasien::when($search, function ($q) use ($search) {
+                $q->where('nama_pasien', 'like', '%' . $search . '%');
+            })
+            ->orderBy('nama_pasien', 'asc')
+            ->paginate(10);
+
+        $pasiens->appends(['cari' => $search]);
+
+        return view('daftar_pasien.index', compact('pasiens'));
     }
 
+    /**
+     * Tampilkan form tambah pasien.
+     */
     public function create()
     {
-        return view('daftar-pasien.create');
+        return view('daftar_pasien.create');
     }
+
+    /**
+     * Simpan data pasien baru.
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pasien'=>'required|string|max:25',
-            'alamat'=>'required|string',
-            'tanggal_lahir'=>'required|date',
-            'no_telepon'=>'required|string|max:15',
-            'jenis_kelamin'=>'required|in:Laki-laki,Perempuan',
-            'tanggal_daftar'=>'required|date',
+            'nama_pasien'    => 'required|string|max:25',
+            'alamat'         => 'required|string',
+            'tanggal_lahir'  => 'required|date',
+            'no_telepon'     => 'required|string|max:15',
+            'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
+            'tanggal_daftar' => 'required|date',
         ]);
 
         Pasien::create($request->all());
 
-        return redirect()->route('daftar-pasien.index')->with('success', 'Pasien berhasil ditambahkan.');
+        return redirect()
+            ->route('daftar-pasien.index')
+            ->with('success', 'Pasien berhasil ditambahkan.');
     }
 
-    public function edit(Pasien $pasien) {
-        return view('daftar-pasien.edit', compact('pasien'));
+    /**
+     * Tampilkan form edit data pasien.
+     */
+    public function edit(Pasien $pasien)
+    {
+        return view('daftar_pasien.edit', compact('pasien'));
     }
 
+    /**
+     * Update data pasien.
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_pasien'=>'required|string|max:255',
-            'alamat'=>'required|string',
-            'tanggal_lahir'=>'required|date',
-            'no_telepon'=>'required|string|max:15',
-            'jenis_kelamin'=>'required|in:Laki-laki,Perempuan',
-            'tanggal_daftar'=>'required|date',
+            'nama_pasien'    => 'required|string|max:255',
+            'alamat'         => 'required|string',
+            'tanggal_lahir'  => 'required|date',
+            'no_telepon'     => 'required|string|max:15',
+            'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
+            'tanggal_daftar' => 'required|date',
         ]);
 
-        $pasien=Pasien::findOrFail($id);
+        $pasien = Pasien::findOrFail($id);
         $pasien->update($request->all());
-        return redirect()->route('daftar-pasien.index')->with('success', 'Data pasien berhasil diperbarui');
+
+        return redirect()
+            ->route('daftar-pasien.index')
+            ->with('success', 'Data pasien berhasil diperbarui');
     }
+
+    /**
+     * Hapus data pasien.
+     */
     public function destroy($id)
     {
-        $pasien=Pasien::findOrFail($id);
+        $pasien = Pasien::findOrFail($id);
         $pasien->delete();
-        return redirect()->route('daftar-pasien.index')->with('success', 'Pasien berhasil dihapus');
+
+        return redirect()
+            ->route('daftar-pasien.index')
+            ->with('success', 'Pasien berhasil dihapus');
     }
 }

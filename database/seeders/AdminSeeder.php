@@ -16,15 +16,10 @@ class AdminSeeder extends Seeder
                 'email' => 'Intan12@gmail.com',
                 'password' => Hash::make('password123'), 
             ],
-            [
-                'nama' => 'Intan',
-                'email' => 'Intan12@gmail.com',
-                'password' => Hash::make('password123'), 
-            ]
         ];
 
         foreach ($data as $admin) {
             Admin::create($admin);
-        }
-    }
+        }
+    }
 }

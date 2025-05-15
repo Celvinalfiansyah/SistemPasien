@@ -17,4 +17,4 @@ Pada progress yang pertama ialah login page yang bisa diakses untuk bidan / admi
 
 ![Scrum 2](public/images/progress2.png)
 
-Pada progress yang kedua adalah Halaman Dashboard yang bisa dilihat oleh bidan / admin untuk mengakses halaman2 yang telah dibuat oleh tim dan yang telah disepakati oleh kedua pihak
+Pada progress yang kedua adalah Halaman Dashboard yang bisa dilihat oleh bidan / admin untuk mengakses halaman2 yang telah dibuat oleh tim dan yang telah disepakati oleh kedua pihak 

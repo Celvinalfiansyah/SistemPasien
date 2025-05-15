@@ -11,7 +11,7 @@
     <aside class="w-60 bg-[#123456] text-white min-h-screen p-5 space-y-6">
         <div class="text-white text-lg font-bold">Menu</div>
         <div class="space-y-4">
-        <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 hover:text-gray-300">
+            <a href="/" class="flex items-center space-x-3 hover:text-gray-300">
                 <span>🏠</span><span>Home</span>
             </a>
             <a href="{{ route('daftar-pasien.index') }}" class="flex items-center space-x-3 hover:text-gray-300">
@@ -34,11 +34,6 @@
 
     <!-- Main Content -->
     <main class="flex-1 p-8">
-
-     <!-- Logo at the bottom -->
-     <div class="mt-16 text-center">
-            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="mx-auto h-10">
-        </div>
         <div class="text-center text-2xl font-semibold text-gray-600 mb-10">
             Selamat datang kembali, dokter
         </div>
@@ -67,8 +62,6 @@
                 <p class="text-sm text-gray-500 mt-2">Butuh panduan atau referensi? Jelajahi berbagai sumber daya yang tersedia.</p>
             </div>
 
-            
-
             <!-- Bantuan Saya -->
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">❓</div>
@@ -77,7 +70,10 @@
             </div>
         </div>
 
-       
+        <!-- Logo at the bottom -->
+        <div class="mt-16 text-center">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="mx-auto h-10">
+        </div>
     </main>
 
 </body>

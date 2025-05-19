@@ -7,7 +7,6 @@
 </head>
 <body class="bg-blue-100 min-h-screen flex">
 
-    <!-- Sidebar -->
     <aside class="w-60 bg-[#123456] text-white min-h-screen p-5 space-y-6">
         <div class="text-white text-lg font-bold">Menu</div>
         <div class="space-y-4">
@@ -32,10 +31,8 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 p-8">
 
-     <!-- Logo at the bottom -->
      <div class="mt-16 text-center">
             <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="mx-auto h-10">
         </div>
@@ -44,14 +41,13 @@
         </div>
 
         <div class="grid grid-cols-2 gap-6 px-20">
-            <!-- Search -->
+
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">🔍</div>
                 <div class="text-lg font-bold">Search</div>
                 <p class="text-sm text-gray-500 mt-2">Apa yang Anda cari hari ini? Ketik kata kunci Anda di sini...</p>
             </div>
 
-            <!-- Data & Laporan -->
             <a href="{{ route('daftar-pasien.index') }}">
                 <div class="bg-white p-6 rounded-lg shadow text-center hover:bg-blue-50 transition duration-300">
                     <div class="text-4xl mb-3">📊</div>
@@ -60,16 +56,12 @@
                 </div>
             </a>
 
-            <!-- Sumber Daya -->
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">📘</div>
                 <div class="text-lg font-bold">Sumber daya</div>
                 <p class="text-sm text-gray-500 mt-2">Butuh panduan atau referensi? Jelajahi berbagai sumber daya yang tersedia.</p>
             </div>
 
-            
-
-            <!-- Bantuan Saya -->
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">❓</div>
                 <div class="text-lg font-bold">Bantuan Saya</div>

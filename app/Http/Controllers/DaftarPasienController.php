@@ -84,6 +84,17 @@ class DaftarPasienController extends Controller
     }
 
     /**
+    * Tampilkan detail data pasien.
+    */
+    public function show(Pasien $pasien)
+    {
+        // Memuat relasi rekam medis jika ada
+        $pasien->load('rekamMedis');
+
+        return view('daftar_pasien.show', compact('pasien'));
+    }
+
+    /**
      * Hapus data pasien.
      */
     public function destroy($id)

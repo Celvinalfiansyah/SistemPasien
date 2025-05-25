@@ -24,4 +24,9 @@ class Pasien extends Model
         'tanggal_lahir' => 'date',
         'tanggal_daftar' => 'datetime',
     ];
+
+    public function rekamMedis() 
+    {
+        return $this->hasMany(RekamMedis::class);
+    }
 }

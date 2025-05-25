@@ -2,68 +2,96 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 
 class RekamMedisController extends Controller
 {
-    public function index()
+    // Tampilkan semua rekam medis untuk pasien tertentu
+    public function index(Pasien $pasien)
     {
-        return response()->json(RekamMedis::with('pasien')->get(), 200);
+        $rekamMedis = $pasien->rekamMedis()->latest()->get();
+        return view('rekam_medis.index', compact('pasien', 'rekamMedis'));
     }
 
-    public function show($id)
+    // Tampilkan form tambah rekam medis
+    public function create(Pasien $pasien)
     {
-        $rekamMedis = RekamMedis::with('pasien')->find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
-        return response()->json($rekamMedis, 200);
+        return view('rekam_medis.create', compact('pasien'));
     }
 
-    public function store(Request $request)
+    // Simpan data rekam medis
+    public function store(Request $request, Pasien $pasien)
     {
-        $request->validate([
-            'id_pasien' => 'required|exists:pasien,id',
-            'tanggal_periksa' => 'required|date',
-            'diagnosa' => 'required|string',
+        $validated = $request->validate([
+            'tanggal_pemeriksaan' => 'required|date',
+            'umur' => 'required|integer|min:0',
+            'berat_badan' => 'required|numeric|min:0',
+            'tinggi_badan' => 'required|numeric|min:0',
+            'klasifikasi' => 'nullable|string',
+            'ttv' => 'nullable|string',
+            'hpht' => 'nullable|date',
+            'anamnesa' => 'nullable|string',
+            'keluhan' => 'nullable|string',
+            'komplikasi' => 'nullable|string',
+            'kegagalan' => 'nullable|string',
             'tindakan' => 'nullable|string',
-            'resep' => 'nullable|string',
         ]);
 
-        $rekamMedis = RekamMedis::create($request->all());
+        $validated['pasien_id'] = $pasien->id;
 
-        return response()->json($rekamMedis, 201);
+        RekamMedis::create($validated);
+
+        return redirect()
+            ->route('pasien.rekam-medis.index', $pasien)
+            ->with('success', 'Rekam medis berhasil ditambahkan.');
     }
 
-    public function update(Request $request, $id)
+    // Tampilkan detail rekam medis tertentu (opsional)
+    public function show(Pasien $pasien, RekamMedis $rekam_medis)
     {
-        $rekamMedis = RekamMedis::find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
+        return view('rekam_medis.show', compact('pasien', 'rekam_medis'));
+    }
 
-        $request->validate([
-            'id_pasien' => 'sometimes|exists:pasien,id',
-            'tanggal_periksa' => 'sometimes|date',
-            'diagnosa' => 'sometimes|string',
-            'tindakan' => 'sometimes|string',
-            'resep' => 'sometimes|string',
+    // Tampilkan form edit
+    public function edit(Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
+    }
+
+    // Simpan perubahan rekam medis
+    public function update(Request $request, Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        $validated = $request->validate([
+            'tanggal_pemeriksaan' => 'required|date',
+            'umur' => 'required|integer|min:0',
+            'berat_badan' => 'required|numeric|min:0',
+            'tinggi_badan' => 'required|numeric|min:0',
+            'klasifikasi' => 'nullable|string',
+            'ttv' => 'nullable|string',
+            'hpht' => 'nullable|date',
+            'anamnesa' => 'nullable|string',
+            'keluhan' => 'nullable|string',
+            'komplikasi' => 'nullable|string',
+            'kegagalan' => 'nullable|string',
+            'tindakan' => 'nullable|string',
         ]);
 
-        $rekamMedis->update($request->all());
+        $rekam_medis->update($validated);
 
-        return response()->json($rekamMedis, 200);
+        return redirect()
+            ->route('pasien.rekam-medis.index', $pasien)
+            ->with('success', 'Rekam medis berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    // Hapus rekam medis
+    public function destroy(Pasien $pasien, RekamMedis $rekam_medis)
     {
-        $rekamMedis = RekamMedis::find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
+        $rekam_medis->delete();
 
-        $rekamMedis->delete();
-        return response()->json(['message' => 'Rekam medis deleted successfully'], 200);
+        return redirect()
+            ->route('pasien.rekam-medis.index', $pasien)
+            ->with('success', 'Rekam medis berhasil dihapus.');
     }
 }

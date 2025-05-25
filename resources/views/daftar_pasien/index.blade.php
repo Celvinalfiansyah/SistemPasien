@@ -83,9 +83,17 @@
                         <td class="py-2 px-4">{{ $p->jenis_kelamin }}</td>
                         <td class="py-2 px-4">{{ $p->tanggal_daftar }}</td>
                         <td class="py-2 px-4 space-x-2 flex">
+                            {{-- Tombol Detail (Dibuat Tambahan) --}}
+                            <a href="{{ route('daftar-pasien.show', $p) }}">
+                                <button class="bg-blue-500 text-white px-3 py-1 rounded">🔍</button>
+                            </a>
+
+                            {{-- Tombol Edit --}}
                             <a href="{{ route('daftar-pasien.edit', $p) }}">
                                 <button class="bg-green-500 text-white px-3 py-1 rounded">✏️</button>
                             </a>
+
+                            {{-- Tombol Hapus --}}
                             <form action="{{ route('daftar-pasien.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus?')" class="inline">
                                 @csrf
                                 @method('DELETE')

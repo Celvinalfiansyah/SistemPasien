@@ -44,7 +44,7 @@ class RekamMedisController extends Controller
         RekamMedis::create($validated);
 
         return redirect()
-            ->route('pasien.rekam-medis.index', $pasien)
+            ->route('daftar-pasien.show', $pasien)
             ->with('success', 'Rekam medis berhasil ditambahkan.');
     }
 
@@ -55,14 +55,18 @@ class RekamMedisController extends Controller
     }
 
     // Tampilkan form edit
-    public function edit(Pasien $pasien, RekamMedis $rekam_medis)
-    {
-        return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
-    }
+    public function edit($pasienId, $rekamMedisId)
+{
+    $pasien = Pasien::findOrFail($pasienId);
+    $rekam_medis = RekamMedis::findOrFail($rekamMedisId);
+
+    return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
+}
 
     // Simpan perubahan rekam medis
     public function update(Request $request, Pasien $pasien, RekamMedis $rekam_medis)
     {
+        
         $validated = $request->validate([
             'tanggal_pemeriksaan' => 'required|date',
             'umur' => 'required|integer|min:0',
@@ -81,17 +85,18 @@ class RekamMedisController extends Controller
         $rekam_medis->update($validated);
 
         return redirect()
-            ->route('pasien.rekam-medis.index', $pasien)
+            ->route('daftar-pasien.show', $pasien)
             ->with('success', 'Rekam medis berhasil diperbarui.');
     }
 
     // Hapus rekam medis
-    public function destroy(Pasien $pasien, RekamMedis $rekam_medis)
-    {
-        $rekam_medis->delete();
+    public function destroyRekamMedis($pasien_id, $rekam_medis_id)
+{
+    $rekam_medis = RekamMedis::findOrFail($rekam_medis_id);
+    $rekam_medis->delete();
 
-        return redirect()
-            ->route('pasien.rekam-medis.index', $pasien)
-            ->with('success', 'Rekam medis berhasil dihapus.');
-    }
+    return redirect()
+        ->route('daftar-pasien.show', $pasien_id)
+        ->with('success', 'Rekam medis berhasil dihapus.');
+}
 }

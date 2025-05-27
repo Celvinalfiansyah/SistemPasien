@@ -109,10 +109,10 @@
 
     <h1>Edit Rekam Medis - {{ $pasien->nama_pasien }}</h1>
 
-    <form action="{{ route('pasien.rekam-medis.update', [$pasien->id, $rekam_medis->id]) }}" method="POST">
-
-        @csrf
-        @method('PUT')
+    <form action="{{ route('pasien.rekam-medis.update', ['pasien' => $pasien->id, 'rekam_medis' => $rekam_medis->id]) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <!-- input fields -->
 
         <div class="form-group">
             <label>Tanggal Pemeriksaan:</label>
@@ -120,10 +120,10 @@
         </div>
 
         <div class="form-row">
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label>Umur:</label>
                 <input type="number" name="umur" value="{{ old('umur', $rekam_medis->umur) }}" min="0" required>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label>Berat Badan (kg):</label>
                 <input type="number" step="0.1" name="berat_badan" value="{{ old('berat_badan', $rekam_medis->berat_badan) }}" min="0" required>
@@ -142,7 +142,7 @@
                     Ibu Hamil
                 </label>
                 <label>
-                    <input type="radio" name="klasifikasi" value="Bayi / Anak" {{ old('klasifikasi', $rekam_medis->klasifikasi) == 'Bayi / Anak' ? 'checked' : '' }}>
+                    <input type="radio" name="klasifikasi" value="Bayi/Anak" {{ old('klasifikasi', $rekam_medis->klasifikasi) == 'Bayi/Anak' ? 'checked' : '' }}>
                     Bayi / Anak
                 </label>
                 <label>

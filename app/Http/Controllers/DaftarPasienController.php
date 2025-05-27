@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
-use App\Models\RekamMedis;
 
 class DaftarPasienController extends Controller
 {
@@ -106,16 +105,5 @@ class DaftarPasienController extends Controller
         return redirect()
             ->route('daftar-pasien.index')
             ->with('success', 'Pasien berhasil dihapus');
-    }
-
-
-public function destroyRekamMedis($pasien_id, $rekam_medis_id)
-    {
-        $rekam_medis = RekamMedis::findOrFail($rekam_medis_id);
-        $rekam_medis->delete();
-
-        return redirect()
-            ->route('daftar-pasien.show', $pasien_id)
-            ->with('success', 'Rekam medis berhasil dihapus.');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class RekamMedisController extends Controller
 {
@@ -26,7 +27,6 @@ class RekamMedisController extends Controller
     {
         $validated = $request->validate([
             'tanggal_pemeriksaan' => 'required|date',
-            'umur' => 'required|integer|min:0',
             'berat_badan' => 'required|numeric|min:0',
             'tinggi_badan' => 'required|numeric|min:0',
             'klasifikasi' => 'nullable|string',
@@ -39,6 +39,13 @@ class RekamMedisController extends Controller
             'tindakan' => 'nullable|string',
         ]);
 
+        // Hitung umur otomatis
+        $tanggalLahir = Carbon::parse($pasien->tanggal_lahir);
+        $tanggalPemeriksaan = Carbon::parse($validated['tanggal_pemeriksaan']);
+        $diff = $tanggalLahir->diff($tanggalPemeriksaan);
+        $umur = "{$diff->y} tahun {$diff->m} bulan {$diff->d} hari";
+
+        $validated['umur'] = $umur;
         $validated['pasien_id'] = $pasien->id;
 
         RekamMedis::create($validated);
@@ -55,21 +62,16 @@ class RekamMedisController extends Controller
     }
 
     // Tampilkan form edit
-    public function edit($pasienId, $rekamMedisId)
-{
-    $pasien = Pasien::findOrFail($pasienId);
-    $rekam_medis = RekamMedis::findOrFail($rekamMedisId);
-
-    return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
-}
+    public function edit(Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
+    }
 
     // Simpan perubahan rekam medis
     public function update(Request $request, Pasien $pasien, RekamMedis $rekam_medis)
     {
-        
         $validated = $request->validate([
             'tanggal_pemeriksaan' => 'required|date',
-            'umur' => 'required|integer|min:0',
             'berat_badan' => 'required|numeric|min:0',
             'tinggi_badan' => 'required|numeric|min:0',
             'klasifikasi' => 'nullable|string',
@@ -82,6 +84,14 @@ class RekamMedisController extends Controller
             'tindakan' => 'nullable|string',
         ]);
 
+        // Hitung umur ulang saat update
+        $tanggalLahir = Carbon::parse($pasien->tanggal_lahir);
+        $tanggalPemeriksaan = Carbon::parse($validated['tanggal_pemeriksaan']);
+        $diff = $tanggalLahir->diff($tanggalPemeriksaan);
+        $umur = "{$diff->y} tahun {$diff->m} bulan {$diff->d} hari";
+
+        $validated['umur'] = $umur;
+
         $rekam_medis->update($validated);
 
         return redirect()
@@ -90,13 +100,12 @@ class RekamMedisController extends Controller
     }
 
     // Hapus rekam medis
-    public function destroyRekamMedis($pasien_id, $rekam_medis_id)
-{
-    $rekam_medis = RekamMedis::findOrFail($rekam_medis_id);
-    $rekam_medis->delete();
+    public function destroy(Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        $rekam_medis->delete();
 
-    return redirect()
-        ->route('daftar-pasien.show', $pasien_id)
-        ->with('success', 'Rekam medis berhasil dihapus.');
-}
+        return redirect()
+            ->route('daftar-pasien.show', $pasien)
+            ->with('success', 'Rekam medis berhasil dihapus.');
+    }
 }

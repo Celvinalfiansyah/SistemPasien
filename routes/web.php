@@ -17,17 +17,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// Resource utama untuk daftar pasien
 Route::resource('daftar-pasien', DaftarPasienController::class)
-     ->parameters(['daftar-pasien' => 'pasien']);
+    ->parameters(['daftar-pasien' => 'pasien']);
 
-     Route::prefix('pasien/{pasien}')->group(function () {
-        Route::resource('rekam-medis', RekamMedisController::class);
-    });
-
-    Route::resource('daftar-pasien.rekam-medis', RekamMedisController::class)->shallow();
-
-Route::resource('pasien.rekam-medis', RekamMedisController::class);
-Route::get('/daftar_pasien/{id}', [DaftarPasienController::class, 'show'])->name('daftar_pasien.show');
-Route::get('daftar-pasien/{pasien}/rekam-medis/{rekam_medis}/edit', [RekamMedisController::class, 'edit'])->name('pasien.rekam-medis.edit');
-Route::put('daftar-pasien/{pasien}/rekam-medis/{rekam_medis}', [RekamMedisController::class, 'update'])->name('pasien.rekam-medis.update');
-Route::delete('daftar-pasien/{pasien}/rekam-medis/{rekam_medis}', [DaftarPasienController::class, 'destroyRekamMedis'])->name('daftar-pasien.rekam-medis.destroy');
+Route::resource('pasien.rekam-medis', RekamMedisController::class)
+    ->parameters(['rekam-medis' => 'rekam_medis']);

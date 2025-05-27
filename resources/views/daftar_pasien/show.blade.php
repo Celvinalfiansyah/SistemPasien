@@ -86,26 +86,33 @@
                             <td class="py-2 px-4">{{ $rm->keluhan }}</td>
                             <td class="py-2 px-4">{{ $rm->tindakan }}</td>
                             <td class="py-2 px-4 space-x-2">
-                            <a href="{{ route('pasien.rekam-medis.edit', [$pasien->id, $rm->id]) }}" class="text-blue-600 hover:underline">Edit</a>
+                                
+                                <a href="{{ route('pasien.rekam-medis.edit', ['pasien' => $pasien->id, 'rekam_medis' => $rm->id]) }}">Edit</a>
 
-
-                            <form action="{{ route('daftar-pasien.rekam-medis.destroy', [$pasien->id, $rm->id]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus rekam medis ini?');" class="inline">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-</form>
-
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="10" class="text-center py-4 text-gray-500">Belum ada rekam medis.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </main>
-
-</body>
+                                    
+                                    <form action="{{ route('pasien.rekam-medis.destroy', [$pasien->id, $rm->id]) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus rekam medis ini?');"
+                                        class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        
+                                        <button type="submit" class="text-red-500 hover:underline">Hapus</button>
+                                    </form>
+                                
+                                </td>
+                             </tr>
+                             @empty
+                             
+                             <tr>
+                                <td colspan="10" class="text-center py-4 text-gray-500">Belum ada rekam medis.</td>
+                            </tr>
+                            
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        
+        </body>
 </html>

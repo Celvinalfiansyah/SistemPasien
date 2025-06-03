@@ -6,6 +6,7 @@ use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RekamMedisController extends Controller
 {
@@ -108,4 +109,14 @@ class RekamMedisController extends Controller
             ->route('daftar-pasien.show', $pasien)
             ->with('success', 'Rekam medis berhasil dihapus.');
     }
+    
+    public function cetak($id)
+    {
+        $pasien = Pasien::with('rekamMedis')->findOrFail($id);
+
+        $pdf = Pdf::loadView('rekam_medis.laporan', compact('pasien'))->setPaper('A4', 'landscape');
+
+        return $pdf->stream('laporan_rekam_medis_' . $pasien->nama . '.pdf');
+    }
 }
+

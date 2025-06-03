@@ -23,3 +23,4 @@ Route::resource('daftar-pasien', DaftarPasienController::class)
 
 Route::resource('pasien.rekam-medis', RekamMedisController::class)
     ->parameters(['rekam-medis' => 'rekam_medis']);
+

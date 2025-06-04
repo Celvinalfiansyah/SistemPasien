@@ -17,7 +17,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/pasien/{id}/rekam-medis/cetak', [RekamMedisController::class])->name('rekam-medis.cetak');
+Route::get('/pasien/{id}/rekam-medis/cetak', [RekamMedisController::class, 'cetak'])->name('rekam-medis.cetak');
 
 // Resource utama untuk daftar pasien
 Route::resource('daftar-pasien', DaftarPasienController::class)

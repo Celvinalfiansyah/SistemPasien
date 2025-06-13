@@ -28,6 +28,12 @@
             <a href="#" class="flex items-center space-x-3 hover:text-gray-300">
                 <span>⚙️</span><span>Settings</span>
             </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="flex items-center space-x-3 text-white hover:text-gray-300 w-full mt-4">
+                    <span>🚪</span><span>Logout</span>
+                </button>
+            </form>
         </div>
     </aside>
 

@@ -18,6 +18,7 @@ class Pasien extends Model
         'alamat',
         'no_telepon',
         'tanggal_daftar',
+        'jenis_pasien',
     ];
 
     protected $casts = [

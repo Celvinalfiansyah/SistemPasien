@@ -7,6 +7,7 @@ use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Jobs\SendFonnteMessageJob;
 
 class RekamMedisController extends Controller
 {
@@ -49,7 +50,14 @@ class RekamMedisController extends Controller
         $validated['umur'] = $umur;
         $validated['pasien_id'] = $pasien->id;
 
-        RekamMedis::create($validated);
+        $rekamMedis = RekamMedis::create($validated);
+
+        $message = "Halo {$pasien->nama_pasien}, hasil pemeriksaan Anda di Bidan Yeni"
+                    . "pada {$rekamMedis->tanggal_pemeriksaan->format('d-m-Y')} sudah dicatat. "
+                    . "Diagnosa/Keluhan: {$rekamMedis->keluhan}."
+                    . "Jika ada keluhan lebih lanjut, silakan datang kembali.";
+
+        SendFonnteMessageJob::dispatch($pasien->no_telepon, $message);
 
         return redirect()
             ->route('daftar-pasien.show', $pasien)

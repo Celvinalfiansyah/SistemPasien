@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    
+    'fonnte' => [
+        'api_key' => env('FONNTE_API_KEY'),
+        'endpoint' => 'https://api.fonnte.com/send',
+    ],
 
 ];

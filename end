@@ -1,0 +1,113 @@
+[33mcommit 59066ee34551e4b2fb9d098f5e546c7697fe952b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Sat Jun 14 00:52:37 2025 +0700
+
+    Authentifikasi dan hak akses
+
+[33mcommit edd1b75a859954af8d6a48b44b93b37acc623f23[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Thu Jun 5 00:45:21 2025 +0700
+
+    Pembetulan Cetak Laporan
+
+[33mcommit 6bd9a2e8c91d2371f7b0bbecd9519c17c484b235[m
+Author: Octavioellen <ellenhariyadi2004@gmail.com>
+Date:   Wed Jun 4 16:08:36 2025 +0700
+
+    Menyelesaikan Laporan Rekam Medis
+
+[33mcommit 7f78cbe3896956817f3f3231eaec12f2cf05e0c1[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Wed Jun 4 03:36:55 2025 +0700
+
+    Penambahan Method Cetak di RekamMedisController
+
+[33mcommit 40f8f06cb5db0157d2a9531870c67b109a6957b6[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Wed May 28 02:20:27 2025 +0700
+
+    Otomatisasi Perhitungan Umur
+
+[33mcommit f1ed2c40f39fea747adbd3b8f7e363cd55c51ef5[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon May 26 15:44:33 2025 +0700
+
+    Penyelesaian tampilan front end rekam medis dan perbaikan route agar bisa ditampilkan
+
+[33mcommit 295fc2573e784b204a2e34d5f8fec154798de88e[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Mon May 26 00:28:49 2025 +0700
+
+    Penyelesaian Back-End Rekam Medis
+
+[33mcommit f3ba3dbe0e2e7486cd3f1787a08d645a7ed687b3[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon May 19 14:17:28 2025 +0700
+
+    lgo
+
+[33mcommit daf300fb832269336a72ceba22ef42ce976bf1f5[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon May 19 13:54:04 2025 +0700
+
+    kode
+
+[33mcommit e0b27fcee0156f282998e803284867ddbbde033d[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon May 19 13:18:29 2025 +0700
+
+    perubahan readme
+
+[33mcommit 1d50aecdacf1abcd84c93ddeddfca82d25d3759c[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Fri May 16 00:26:31 2025 +0700
+
+    Perubahan Layout daftar pasien dan Penampilan pada daftar pasien
+
+[33mcommit 29dc27401831505d064869d585036dd4f7005191[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Wed May 14 02:42:36 2025 +0700
+
+    Menyelesaikan Daftar Pasien
+
+[33mcommit 10866216a60124092a26e85d4764ec9d3cb23216[m
+Author: Octavioellen <ellenhariyadi2004@gmail.com>
+Date:   Mon Apr 28 15:35:05 2025 +0700
+
+    daftarpasien
+
+[33mcommit d8ba2ef172315a5062e896da3dd8989b6e70fac4[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon Apr 21 20:23:53 2025 +0700
+
+    perubahan code yang ada pada dashboard
+
+[33mcommit a4e5d012e95dd0309daefef70d62b35b3feed0c3[m
+Author: Wayyy <wahyugfc81@gmail.com>
+Date:   Mon Mar 24 11:44:10 2025 +0700
+
+    perbaikan migrate
+
+[33mcommit 1b17c693a5e08fe7cd25bffb60fdbf71dbfa8562[m
+Author: Octavioellen <ellenhariyadi2004@gmail.com>
+Date:   Sun Mar 23 20:44:38 2025 +0700
+
+    SistemPasien
+
+[33mcommit 6222b17d4fcd3b1ad7c5832c7d3e6b30bd9bc2c6[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon Mar 17 13:07:45 2025 +0700
+
+    perubahan readme
+
+[33mcommit e2f325f77aba84d97ad71fe7d469f435379f209d[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon Mar 17 13:06:45 2025 +0700
+
+    perubahan code untuk login page
+
+[33mcommit 2f8bf5212c8518b45548e99d6c4aa75fde2fb040[m
+Author: Celvinn12 <celvingamer46@gmail.com>
+Date:   Mon Mar 10 13:40:45 2025 +0700
+
+    pembukaan

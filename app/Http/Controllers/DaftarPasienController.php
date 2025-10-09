@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
+// use App\Jobs\SendFonnteMessageJob;
+use App\Services\FonnteService;
+use App\Models\LogPesan;
 
 class DaftarPasienController extends Controller
 {
@@ -35,7 +38,7 @@ class DaftarPasienController extends Controller
     /**
      * Simpan data pasien baru.
      */
-    public function store(Request $request)
+    public function store(Request $request, FonnteService $fonnte)
     {
         $request->validate([
             'nama_pasien'    => 'required|string|max:25',
@@ -46,11 +49,27 @@ class DaftarPasienController extends Controller
             'tanggal_daftar' => 'required|date',
         ]);
 
-        Pasien::create($request->all());
+        $pasien = Pasien::create($request->all());
+
+        // Pesan WA
+        $message = "Halo {$pasien->nama_pasien}, Anda berhasil terdaftar di Bidan Yeni" 
+                    . "pada {$pasien->tanggal_daftar}. Harap simpan nomor ini untuk informasi berikutnya";
+
+        // SendFonnteMessageJob::dispatch($pasien->no_telepon, $message);
+
+        $response = $fonnte->sendMessage($pasien->no_telepon, $message);
+         
+        // Simpan log
+        LogPesan::create([
+            'pasien_id' => $pasien->id,
+            'tipe_pesan' => 'registrasi',
+            'isi_pesan' => $message,
+            'status' => $response['status'] ?? 'failed'
+        ]);
 
         return redirect()
             ->route('daftar-pasien.index')
-            ->with('success', 'Pasien berhasil ditambahkan.');
+            ->with('success', 'Pasien berhasil ditambahkan & notifikasi WA dikirim.');
     }
 
     /**

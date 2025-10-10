@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 
@@ -33,7 +32,7 @@ class DaftarPasienController extends Controller
      */
     public function create()
     {
-        return view('daftar_pasien.create');
+        return view('daftar-pasien.create');
     }
 
     /**
@@ -98,5 +97,21 @@ class DaftarPasienController extends Controller
         return redirect()
             ->route('daftar-pasien.index')
             ->with('success', 'Pasien berhasil dihapus');
+            'nama_pasien'=>'required|string|max:255',
+            'alamat'=>'required|string',
+            'tanggal_lahir'=>'required|date',
+            'no_telepon'=>'required|string|max:15',
+            'jenis_kelamin'=>'required|in:Laki-laki,Perempuan',
+            'tanggal_daftar'=>'required|date',
+        ]);
+        $pasien=Pasien::findOrFail($id);
+        $pasien->update($request->all());
+        return redirect()->route('daftar-pasien.index')->with('success', 'Data pasien berhasil diperbarui');
+    }
+    public function destroy($id)
+    {
+        $pasien=Pasien::findOrFail($id);
+        $pasien->delete();
+        return redirect()->route('daftar-pasien.index')->with('success', 'Pasien berhasil dihapus');
     }
 }

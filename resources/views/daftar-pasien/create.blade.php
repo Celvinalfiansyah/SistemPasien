@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Edit Pasien</title>
+    <title>Tambah Pasien</title>
     <style>
         body {
             background-color: #cbe6f6; /* Warna biru muda sesuai gambar */
@@ -38,16 +38,18 @@
             height: 60px;
             resize: vertical;
         }
-        .radio-group {
+        .radio-group, .checkbox-group {
             margin-bottom: 20px;
         }
-        .radio-group label {
+        .radio-group label,
+        .checkbox-group label {
             display: inline-block;
             margin-right: 30px;
             font-weight: normal;
             font-size: 14px;
         }
-        .radio-group input[type="radio"] {
+        .radio-group input[type="radio"],
+        .checkbox-group input[type="checkbox"] {
             margin-right: 6px;
         }
         .buttons {
@@ -71,42 +73,49 @@
             background-color: #ff3333;
             color: white;
             text-decoration: none;
-            line-height: 1.1;
+            line-height: 2.1;
         }
     </style>
 </head>
 <body>
-    <h1>Edit Pasien</h1>
+    <h1>Tambahkan Pasien</h1>
 
-    <form action="{{ route('daftar-pasien.update', $pasien->id) }}" method="POST">
+    <h1>Tambah Pasien Baru</h1>
+
+    <form action="{{ route('daftar-pasien.store') }}" method="POST">
         @csrf
-        @method('PUT')
+        <label>Nama:</label><br>
+        <input type="text" name="nama_pasien" required><br><br>
 
-        <label>Nama:</label>
-        <input type="text" name="nama_pasien" value="{{ $pasien->nama_pasien }}" required>
+        <label>Alamat:</label><br>
+        <textarea name="alamat" required></textarea><br><br>
 
-        <label>Alamat:</label>
-        <textarea name="alamat" required>{{ $pasien->alamat }}</textarea>
+        <label>Tanggal Lahir</label><br>
+        <input type="date" name="tanggal_lahir" required><br><br>
 
-        <label>Tanggal Lahir:</label>
-        <input type="date" name="tanggal_lahir" value="{{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('Y-m-d') }}" required>
+        <label>No Hp:</label><br>
+        <input type="text" name="no_telepon" required><br><br>
 
-        <label>No Hp:</label>
-        <input type="text" name="no_telepon" value="{{ $pasien->no_telepon }}" required>
-
+<<<<<<< HEAD:resources/views/daftar_pasien/create.blade.php
         <div class="radio-group">
             <label>Jenis Kelamin</label><br />
-            <label><input type="radio" name="jenis_kelamin" value="Laki-laki" {{ $pasien->jenis_kelamin == 'Laki-laki' ? 'checked' : '' }}> Laki laki</label>
-            <label><input type="radio" name="jenis_kelamin" value="Perempuan" {{ $pasien->jenis_kelamin == 'Perempuan' ? 'checked' : '' }}> Perempuan</label>
+            <label><input type="radio" name="jenis_kelamin" value="Laki-laki" required /> Laki laki</label>
+            <label><input type="radio" name="jenis_kelamin" value="Perempuan" /> Perempuan</label>
         </div>
+=======
+        <label>Jenis Kelamin:</label><br>
+        <select name="jenis_kelamin" required>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select><br><br>
+>>>>>>> 29dc27401831505d064869d585036dd4f7005191:resources/views/daftar-pasien/create.blade.php
+        
+        <label>Tanggal Daftar</label><br>
+        <input type="datetime-local" name="tanggal_daftar" required>
 
-        <label>Tanggal Daftar:</label>
-        <input type="datetime-local" name="tanggal_daftar" value="{{ $pasien->tanggal_daftar->format('Y-m-d\TH:i') }}" required>
-
-        <div class="buttons">
-        <a href="{{ route('daftar-pasien.index') }}" class="btn-cancel">Batalkan</a>
-            <button type="submit">Update</button>
-        </div>
+        <button type="submit">Simpan</button>
+        
+        <a href="{{ route('daftar-pasien.index') }}">Kembali ke Daftar Pasien</a>
     </form>
 </body>
 </html>

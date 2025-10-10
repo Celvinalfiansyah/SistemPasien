@@ -10,7 +10,11 @@ class Pasien extends Model
     use HasFactory;
 
     protected $table = 'pasien';
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 29dc27401831505d064869d585036dd4f7005191
     protected $fillable = [
         'nama_pasien',
         'tanggal_lahir',

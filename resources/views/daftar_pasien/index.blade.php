@@ -7,7 +7,6 @@
 </head>
 <body class="bg-blue-100 min-h-screen flex">
 
-    <!-- Sidebar -->
     <aside class="w-60 bg-[#123456] text-white min-h-screen p-5 space-y-6">
         <div class="text-white text-lg font-bold mb-6">Menu</div>
         <div class="space-y-4">
@@ -29,13 +28,17 @@
             <a href="#" class="flex items-center space-x-3 hover:text-gray-300">
                 <span>⚙️</span><span>Settings</span>
             </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="flex items-center space-x-3 text-white hover:text-gray-300 w-full mt-4">
+                    <span>🚪</span><span>Logout</span>
+                </button>
+            </form>
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 p-10">
 
-        <!-- Search Form -->
         <div class="mb-6">
             <form method="GET" action="{{ route('daftar-pasien.index') }}" class="flex">
                 <input
@@ -51,14 +54,12 @@
             </form>
         </div>
 
-        <!-- Tambah Pasien Button -->
         <div class="mb-4">
             <a href="{{ route('daftar-pasien.create') }}">
                 <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">+ Tambah Pasien</button>
             </a>
         </div>
 
-        <!-- Table -->
         <div class="bg-white rounded-lg shadow overflow-x-auto">
             <table class="min-w-full text-left">
                 <thead class="bg-gray-100">
@@ -88,9 +89,17 @@
                         <td class="py-2 px-4">{{ $p->jenis_kelamin }}</td>
                         <td class="py-2 px-4">{{ $p->tanggal_daftar }}</td>
                         <td class="py-2 px-4 space-x-2 flex">
+                            {{-- Tombol Detail (Dibuat Tambahan) --}}
+                            <a href="{{ route('daftar-pasien.show', $p) }}">
+                                <button class="bg-blue-500 text-white px-3 py-1 rounded">🔍</button>
+                            </a>
+
+                            {{-- Tombol Edit --}}
                             <a href="{{ route('daftar-pasien.edit', $p) }}">
                                 <button class="bg-green-500 text-white px-3 py-1 rounded">✏️</button>
                             </a>
+
+                            {{-- Tombol Hapus --}}
                             <form action="{{ route('daftar-pasien.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus?')" class="inline">
                                 @csrf
                                 @method('DELETE')
@@ -103,7 +112,6 @@
             </table>
         </div>
 
-        <!-- Manual Numeric Pagination -->
         <div class="mt-4 flex justify-end">
             @if ($pasiens->lastPage() > 1)
                 <ul class="inline-flex items-center space-x-1">
@@ -135,7 +143,6 @@
                 </ul>
             @endif
         </div>
-
     </main>
 </body>
 </html>

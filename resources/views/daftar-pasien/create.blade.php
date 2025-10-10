@@ -96,19 +96,11 @@
         <label>No Hp:</label><br>
         <input type="text" name="no_telepon" required><br><br>
 
-<<<<<<< HEAD:resources/views/daftar_pasien/create.blade.php
-        <div class="radio-group">
-            <label>Jenis Kelamin</label><br />
-            <label><input type="radio" name="jenis_kelamin" value="Laki-laki" required /> Laki laki</label>
-            <label><input type="radio" name="jenis_kelamin" value="Perempuan" /> Perempuan</label>
-        </div>
-=======
         <label>Jenis Kelamin:</label><br>
         <select name="jenis_kelamin" required>
             <option value="Laki-laki">Laki-laki</option>
             <option value="Perempuan">Perempuan</option>
         </select><br><br>
->>>>>>> 29dc27401831505d064869d585036dd4f7005191:resources/views/daftar-pasien/create.blade.php
         
         <label>Tanggal Daftar</label><br>
         <input type="datetime-local" name="tanggal_daftar" required>

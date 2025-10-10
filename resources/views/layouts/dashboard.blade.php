@@ -7,7 +7,10 @@
 </head>
 <body class="bg-blue-100 min-h-screen flex">
 
+<<<<<<< HEAD
     <!-- Sidebar -->
+=======
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
     <aside class="w-60 bg-[#123456] text-white min-h-screen p-5 space-y-6">
         <div class="text-white text-lg font-bold">Menu</div>
         <div class="space-y-4">
@@ -29,24 +32,43 @@
             <a href="#" class="flex items-center space-x-3 hover:text-gray-300">
                 <span>⚙️</span><span>Settings</span>
             </a>
+<<<<<<< HEAD
         </div>
     </aside>
 
     <!-- Main Content -->
+=======
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="flex items-center space-x-3 text-white hover:text-gray-300 w-full mt-4">
+                    <span>🚪</span><span>Logout</span>
+                </button>
+            </form>
+        </div>
+    </aside>
+
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
     <main class="flex-1 p-8">
         <div class="text-center text-2xl font-semibold text-gray-600 mb-10">
             Selamat datang kembali, dokter
         </div>
 
         <div class="grid grid-cols-2 gap-6 px-20">
+<<<<<<< HEAD
             <!-- Search -->
+=======
+
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">🔍</div>
                 <div class="text-lg font-bold">Search</div>
                 <p class="text-sm text-gray-500 mt-2">Apa yang Anda cari hari ini? Ketik kata kunci Anda di sini...</p>
             </div>
 
+<<<<<<< HEAD
             <!-- Data & Laporan -->
+=======
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
             <a href="{{ route('daftar-pasien.index') }}">
                 <div class="bg-white p-6 rounded-lg shadow text-center hover:bg-blue-50 transition duration-300">
                     <div class="text-4xl mb-3">📊</div>
@@ -55,14 +77,20 @@
                 </div>
             </a>
 
+<<<<<<< HEAD
             <!-- Sumber Daya -->
+=======
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">📘</div>
                 <div class="text-lg font-bold">Sumber daya</div>
                 <p class="text-sm text-gray-500 mt-2">Butuh panduan atau referensi? Jelajahi berbagai sumber daya yang tersedia.</p>
             </div>
 
+<<<<<<< HEAD
             <!-- Bantuan Saya -->
+=======
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <div class="text-4xl mb-3">❓</div>
                 <div class="text-lg font-bold">Bantuan Saya</div>
@@ -70,7 +98,10 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Logo at the bottom -->
+=======
+>>>>>>> 79b4b19c5a7c91e4699dc0a34cfcca96b8bb1cda
         <div class="mt-16 text-center">
             <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="mx-auto h-10">
         </div>

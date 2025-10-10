@@ -16,4 +16,9 @@ class Bidan extends Model
         'no_telepon',
         'email',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -2,68 +2,129 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Jobs\SendFonnteMessageJob;
 
 class RekamMedisController extends Controller
 {
-    public function index()
+    // Tampilkan semua rekam medis untuk pasien tertentu
+    public function index(Pasien $pasien)
     {
-        return response()->json(RekamMedis::with('pasien')->get(), 200);
+        $rekamMedis = $pasien->rekamMedis()->latest()->get();
+        return view('rekam_medis.index', compact('pasien', 'rekamMedis'));
     }
 
-    public function show($id)
+    // Tampilkan form tambah rekam medis
+    public function create(Pasien $pasien)
     {
-        $rekamMedis = RekamMedis::with('pasien')->find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
-        return response()->json($rekamMedis, 200);
+        return view('rekam_medis.create', compact('pasien'));
     }
 
-    public function store(Request $request)
+    // Simpan data rekam medis
+    public function store(Request $request, Pasien $pasien)
     {
-        $request->validate([
-            'id_pasien' => 'required|exists:pasien,id',
-            'tanggal_periksa' => 'required|date',
-            'diagnosa' => 'required|string',
+        $validated = $request->validate([
+            'tanggal_pemeriksaan' => 'required|date',
+            'berat_badan' => 'required|numeric|min:0',
+            'tinggi_badan' => 'required|numeric|min:0',
+            'klasifikasi' => 'nullable|string',
+            'ttv' => 'nullable|string',
+            'hpht' => 'nullable|date',
+            'anamnesa' => 'nullable|string',
+            'keluhan' => 'nullable|string',
+            'komplikasi' => 'nullable|string',
+            'kegagalan' => 'nullable|string',
             'tindakan' => 'nullable|string',
-            'resep' => 'nullable|string',
         ]);
 
-        $rekamMedis = RekamMedis::create($request->all());
+        // Hitung umur otomatis
+        $tanggalLahir = Carbon::parse($pasien->tanggal_lahir);
+        $tanggalPemeriksaan = Carbon::parse($validated['tanggal_pemeriksaan']);
+        $diff = $tanggalLahir->diff($tanggalPemeriksaan);
+        $umur = "{$diff->y} tahun {$diff->m} bulan {$diff->d} hari";
 
-        return response()->json($rekamMedis, 201);
+        $validated['umur'] = $umur;
+        $validated['pasien_id'] = $pasien->id;
+
+        $rekamMedis = RekamMedis::create($validated);
+
+        $message = "Halo {$pasien->nama_pasien}, hasil pemeriksaan Anda di Bidan Yeni"
+                    . "pada {$rekamMedis->tanggal_pemeriksaan->format('d-m-Y')} sudah dicatat. "
+                    . "Diagnosa/Keluhan: {$rekamMedis->keluhan}."
+                    . "Jika ada keluhan lebih lanjut, silakan datang kembali.";
+
+        SendFonnteMessageJob::dispatch($pasien->no_telepon, $message);
+
+        return redirect()
+            ->route('daftar-pasien.show', $pasien)
+            ->with('success', 'Rekam medis berhasil ditambahkan.');
     }
 
-    public function update(Request $request, $id)
+    // Tampilkan detail rekam medis tertentu (opsional)
+    public function show(Pasien $pasien, RekamMedis $rekam_medis)
     {
-        $rekamMedis = RekamMedis::find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
+        return view('rekam_medis.show', compact('pasien', 'rekam_medis'));
+    }
 
-        $request->validate([
-            'id_pasien' => 'sometimes|exists:pasien,id',
-            'tanggal_periksa' => 'sometimes|date',
-            'diagnosa' => 'sometimes|string',
-            'tindakan' => 'sometimes|string',
-            'resep' => 'sometimes|string',
+    // Tampilkan form edit
+    public function edit(Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        return view('rekam_medis.edit', compact('pasien', 'rekam_medis'));
+    }
+
+    // Simpan perubahan rekam medis
+    public function update(Request $request, Pasien $pasien, RekamMedis $rekam_medis)
+    {
+        $validated = $request->validate([
+            'tanggal_pemeriksaan' => 'required|date',
+            'berat_badan' => 'required|numeric|min:0',
+            'tinggi_badan' => 'required|numeric|min:0',
+            'klasifikasi' => 'nullable|string',
+            'ttv' => 'nullable|string',
+            'hpht' => 'nullable|date',
+            'anamnesa' => 'nullable|string',
+            'keluhan' => 'nullable|string',
+            'komplikasi' => 'nullable|string',
+            'kegagalan' => 'nullable|string',
+            'tindakan' => 'nullable|string',
         ]);
 
-        $rekamMedis->update($request->all());
+        // Hitung umur ulang saat update
+        $tanggalLahir = Carbon::parse($pasien->tanggal_lahir);
+        $tanggalPemeriksaan = Carbon::parse($validated['tanggal_pemeriksaan']);
+        $diff = $tanggalLahir->diff($tanggalPemeriksaan);
+        $umur = "{$diff->y} tahun {$diff->m} bulan {$diff->d} hari";
 
-        return response()->json($rekamMedis, 200);
+        $validated['umur'] = $umur;
+
+        $rekam_medis->update($validated);
+
+        return redirect()
+            ->route('daftar-pasien.show', $pasien)
+            ->with('success', 'Rekam medis berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    // Hapus rekam medis
+    public function destroy(Pasien $pasien, RekamMedis $rekam_medis)
     {
-        $rekamMedis = RekamMedis::find($id);
-        if (!$rekamMedis) {
-            return response()->json(['message' => 'Rekam medis not found'], 404);
-        }
+        $rekam_medis->delete();
 
-        $rekamMedis->delete();
-        return response()->json(['message' => 'Rekam medis deleted successfully'], 200);
+        return redirect()
+            ->route('daftar-pasien.show', $pasien)
+            ->with('success', 'Rekam medis berhasil dihapus.');
+    }
+    
+    public function cetak($id)
+    {
+        $pasien = Pasien::with('rekamMedis')->findOrFail($id);
+
+        $pdf = Pdf::loadView('rekam_medis.laporan', compact('pasien'))->setPaper('A4', 'landscape');
+
+        return $pdf->stream('laporan_rekam_medis_' . $pasien->nama . '.pdf');
     }
 }
+

@@ -12,19 +12,29 @@ class RekamMedis extends Model
     protected $table = 'rekam_medis';
 
     protected $fillable = [
-        'id_pasien',
-        'tanggal_periksa',
-        'diagnosa',
+        'pasien_id',
+        'tanggal_pemeriksaan',
+        'umur',
+        'berat_badan',
+        'tinggi_badan',
+        'klasifikasi',
+        'ttv',
+        'hpht',
+        'anamnesa',
+        'keluhan',
+        'komplikasi',
+        'kegagalan',
         'tindakan',
-        'resep',
     ];
 
     protected $casts = [
-        'tanggal_periksa' => 'date',
+        'tanggal_pemeriksaan' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function pasien()
     {
-        return $this->belongsTo(Pasien::class, 'id_pasien');
+        return $this->belongsTo(Pasien::class);
     }
 }

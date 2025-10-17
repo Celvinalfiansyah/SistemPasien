@@ -47,6 +47,7 @@ class DaftarPasienController extends Controller
             'no_telepon'     => 'required|string|max:15',
             'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
             'tanggal_daftar' => 'required|date',
+            'jenis_pasien'   => 'nullable|in:rawat_jalan,bayi_anak,kb',
         ]);
 
         $pasien = Pasien::create($request->all());
@@ -92,6 +93,7 @@ class DaftarPasienController extends Controller
             'no_telepon'     => 'required|string|max:15',
             'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
             'tanggal_daftar' => 'required|date',
+            'jenis_pasien'   => 'nullable|in:rawat_jalan,bayi_anak,kb',
         ]);
 
         $pasien = Pasien::findOrFail($id);
@@ -105,13 +107,30 @@ class DaftarPasienController extends Controller
     /**
     * Tampilkan detail data pasien.
     */
-    public function show(Pasien $pasien)
-    {
-        // Memuat relasi rekam medis jika ada
-        $pasien->load('rekamMedis');
+    public function show($id)
+{
+    $pasien = Pasien::findOrFail($id);
 
-        return view('daftar_pasien.show', compact('pasien'));
+    // Tentukan jenis rekam medis berdasarkan jenis pasien
+    switch ($pasien->jenis_pasien) {
+        case 'bayi_anak':
+            $rekamMedis = $pasien->rekamMedisBayiAnak()->latest()->get();
+            $folderView = 'rekam_medis_bayi_anak';
+            break;
+
+        case 'kb':
+            $rekamMedis = $pasien->rekamMedisKb()->latest()->get();
+            $folderView = 'rekam_medis_kb';
+            break;
+
+        default: // Rawat Jalan
+            $rekamMedis = $pasien->rekamMedisRawatJalan()->latest()->get();
+            $folderView = 'rekam_medis_rawat_jalan';
+            break;
     }
+
+    return view('daftar_pasien.show', compact('pasien', 'rekamMedis', 'folderView'));
+}
 
     /**
      * Hapus data pasien.

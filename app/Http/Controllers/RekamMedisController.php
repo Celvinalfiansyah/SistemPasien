@@ -53,7 +53,7 @@ class RekamMedisController extends Controller
         $rekamMedis = RekamMedis::create($validated);
 
         $message = "Halo {$pasien->nama_pasien}, hasil pemeriksaan Anda di Bidan Yeni"
-                    . "pada {$rekamMedis->tanggal_pemeriksaan->format('d-m-Y')} sudah dicatat. "
+                    . "pada {$rekamMedis->tanggal_pemeriksaan} sudah dicatat. "
                     . "Diagnosa/Keluhan: {$rekamMedis->keluhan}."
                     . "Jika ada keluhan lebih lanjut, silakan datang kembali.";
 

@@ -30,4 +30,19 @@ class Pasien extends Model
     {
         return $this->hasMany(RekamMedis::class);
     }
+    
+    public function rekamMedisRawatJalan()
+    {
+        return $this->hasMany(RekamMedisRawatJalan::class);
+    }
+    
+    public function rekamMedisBayiAnak()
+    {
+        return $this->hasMany(RekamMedisBayiAnak::class);
+    }
+    
+    public function rekamMedisKb()
+    {
+        return $this->hasMany(RekamMedisKb::class);
+    }
 }

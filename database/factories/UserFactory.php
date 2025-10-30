@@ -33,6 +33,34 @@ class UserFactory extends Factory
     }
 
     /**
+     * Indicate that the user is a 'bidan'.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function bidan(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'bidan',
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user is an 'admin'.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'admin',
+            ];
+        });
+    }
+
+    /**
      * Indicate that the model's email address should be unverified.
      */
     public function unverified(): static

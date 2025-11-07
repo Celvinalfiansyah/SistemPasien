@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Pasien;
 use Illuminate\Http\Request;
-// use App\Jobs\SendFonnteMessageJob;
 use App\Services\FonnteService;
 use App\Models\LogPesan;
 
@@ -44,19 +44,17 @@ class DaftarPasienController extends Controller
             'nama_pasien'    => 'required|string|max:25',
             'alamat'         => 'required|string',
             'tanggal_lahir'  => 'required|date',
-            'no_telepon'     => 'required|string|max:15',
+            'no_telepon'     => 'required|string|max:15|unique:pasien,no_telepon',
             'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
             'tanggal_daftar' => 'required|date',
-            'jenis_pasien'   => 'nullable|in:rawat_jalan,bayi_anak,kb',
+            'jenis_pasien'   => 'required|in:rawat_jalan,bayi_anak,kb',
         ]);
 
         $pasien = Pasien::create($request->all());
 
         // Pesan WA
         $message = "Halo {$pasien->nama_pasien}, Anda berhasil terdaftar di Bidan Yeni" 
-                    . "pada {$pasien->tanggal_daftar}. Harap simpan nomor ini untuk informasi berikutnya";
-
-        // SendFonnteMessageJob::dispatch($pasien->no_telepon, $message);
+                    . " pada {$pasien->tanggal_daftar}. Harap simpan nomor ini untuk informasi berikutnya";
 
         $response = $fonnte->sendMessage($pasien->no_telepon, $message);
          
@@ -86,17 +84,18 @@ class DaftarPasienController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $pasien = Pasien::findOrFail($id);
+        
         $request->validate([
-            'nama_pasien'    => 'required|string|max:255',
+            'nama_pasien'    => 'required|string|max:25',
             'alamat'         => 'required|string',
             'tanggal_lahir'  => 'required|date',
-            'no_telepon'     => 'required|string|max:15',
+            'no_telepon'     => 'required|string|max:15|unique:pasien,no_telepon,' . $pasien->id,
             'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
             'tanggal_daftar' => 'required|date',
-            'jenis_pasien'   => 'nullable|in:rawat_jalan,bayi_anak,kb',
+            'jenis_pasien'   => 'required|in:rawat_jalan,bayi_anak,kb',
         ]);
 
-        $pasien = Pasien::findOrFail($id);
         $pasien->update($request->all());
 
         return redirect()
@@ -108,29 +107,29 @@ class DaftarPasienController extends Controller
     * Tampilkan detail data pasien.
     */
     public function show($id)
-{
-    $pasien = Pasien::findOrFail($id);
+    {
+        $pasien = Pasien::findOrFail($id);
 
-    // Tentukan jenis rekam medis berdasarkan jenis pasien
-    switch ($pasien->jenis_pasien) {
-        case 'bayi_anak':
-            $rekamMedis = $pasien->rekamMedisBayiAnak()->latest()->get();
-            $folderView = 'rekam_medis_bayi_anak';
-            break;
+        // Tentukan jenis rekam medis berdasarkan jenis pasien
+        switch ($pasien->jenis_pasien) {
+            case 'bayi_anak':
+                $rekamMedis = $pasien->rekamMedisBayiAnak()->latest()->get();
+                $folderView = 'rekam_medis_bayi_anak';
+                break;
 
-        case 'kb':
-            $rekamMedis = $pasien->rekamMedisKb()->latest()->get();
-            $folderView = 'rekam_medis_kb';
-            break;
+            case 'kb':
+                $rekamMedis = $pasien->rekamMedisKb()->latest()->get();
+                $folderView = 'rekam_medis_kb';
+                break;
 
-        default: // Rawat Jalan
-            $rekamMedis = $pasien->rekamMedisRawatJalan()->latest()->get();
-            $folderView = 'rekam_medis_rawat_jalan';
-            break;
+            default: // Rawat Jalan
+                $rekamMedis = $pasien->rekamMedisRawatJalan()->latest()->get();
+                $folderView = 'rekam_medis_rawat_jalan';
+                break;
+        }
+
+        return view('daftar_pasien.show', compact('pasien', 'rekamMedis', 'folderView'));
     }
-
-    return view('daftar_pasien.show', compact('pasien', 'rekamMedis', 'folderView'));
-}
 
     /**
      * Hapus data pasien.

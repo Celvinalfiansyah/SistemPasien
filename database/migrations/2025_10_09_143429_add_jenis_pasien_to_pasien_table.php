@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('pasien', function (Blueprint $table) {
             $table->enum('jenis_pasien', ['rawat_jalan', 'bayi_anak', 'kb'])
-            ->nullable()
+            ->default('rawat_jalan') // ubah dari nullable menjadi default value
             ->after('tanggal_daftar');
         });
     }

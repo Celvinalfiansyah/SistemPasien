@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8" />
     <title>Detail Rekam Medis Rawat Jalan</title>
-    <style>
-        /* CSS yang sama seperti di daftar */
-    </style>
 </head>
 <body>
 
     <h1>Detail Rekam Medis Rawat Jalan</h1>
 
+    <p>ID Rekam Medis: {{ $rekam_medis_rawat_jalan->id }}</p> 
+
     <div>
-        <strong>Nama Pasien:</strong> {{ $rekam->pasien->nama_pasien }}<br>
-        <strong>Tanggal Pemeriksaan:</strong> {{ $rekam->tanggal_pemeriksaan }}<br>
-        <strong>TTV:</strong> {{ $rekam->ttv }}<br>
-        <strong>Anamnesa:</strong> {{ $rekam->anamnesa }}<br>
-        <strong>Keluhan:</strong> {{ $rekam->keluhan }}<br>
-        <strong>Tindakan:</strong> {{ $rekam->tindakan }}<br>
+        <strong>Nama Pasien:</strong> {{ $pasien->nama_pasien }}<br>
+        <strong>Tanggal Pemeriksaan:</strong> {{ $rekam_medis_rawat_jalan->tanggal_pemeriksaan }}<br>
+        <strong>TTV:</strong> {{ $rekam_medis_rawat_jalan->ttv }}<br>
+        <strong>Anamnesa:</strong> {{ $rekam_medis_rawat_jalan->anamnesa }}<br>
+        <strong>Keluhan:</strong> {{ $rekam_medis_rawat_jalan->keluhan }}<br>
+        <strong>Tindakan:</strong> {{ $rekam_medis_rawat_jalan->tindakan }}<br>
     </div>
 
     <br>
-    <a href="{{ route('rekam-medis-rawat-jalan.index') }}"><button>Kembali</button></a>
+    <a href="{{ route('daftar-pasien.show', $pasien->id) }}"><button>Kembali</button></a>
 
 </body>
 </html>
+
+showrawat jalan

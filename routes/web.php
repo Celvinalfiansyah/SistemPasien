@@ -8,6 +8,12 @@ use App\Http\Controllers\RekamMedisBayiAnakController;
 use App\Http\Controllers\RekamMedisKbController;
 use App\Http\Controllers\Auth\LoginController;
 
+
+// Redirect root URL to login page
+Route::get('/', function () {
+    return redirect('/login');
+});
+
 // Route untuk autentikasi (login dan logout)
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

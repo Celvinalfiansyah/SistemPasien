@@ -144,3 +144,4 @@ class DaftarPasienController extends Controller
             ->with('success', 'Pasien berhasil dihapus');
     }
 }
+//

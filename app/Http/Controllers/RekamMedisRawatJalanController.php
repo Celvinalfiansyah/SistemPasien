@@ -123,3 +123,5 @@ class RekamMedisRawatJalanController extends Controller
             ->with('success', 'Rekam medis rawat jalan berhasil dihapus.');
     }
 }
+
+//

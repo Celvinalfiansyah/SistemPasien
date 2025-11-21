@@ -73,3 +73,4 @@ class AdminController extends Controller
         return response()->json(['message' => 'Admin deleted successfully'], 200);
     }
 }
+//

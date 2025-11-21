@@ -26,3 +26,4 @@ class RekamMedisRawatJalan extends Model
         return $this->belongsTo(Pasien::class);
     }
 }
+//

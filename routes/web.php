@@ -52,3 +52,4 @@ Route::middleware('auth')->group(function () {
             ->parameters(['rekam-medis' => 'rekam_medis']);
     });
 });
+//

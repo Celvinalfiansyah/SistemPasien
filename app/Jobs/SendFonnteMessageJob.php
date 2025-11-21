@@ -27,3 +27,4 @@ class SendFonnteMessageJob implements ShouldQueue
         $fonnte->sendMessage($this->phone, $this->message);
     }
 }
+//

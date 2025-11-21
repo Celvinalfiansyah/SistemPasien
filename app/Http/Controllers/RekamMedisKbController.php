@@ -82,3 +82,5 @@ class RekamMedisKbController extends Controller
         return redirect()->route('rekam-medis-kb.index')->with('success', 'Rekam medis KB berhasil dihapus!');
     }
 }
+
+//

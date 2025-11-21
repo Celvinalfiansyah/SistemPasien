@@ -46,3 +46,4 @@ class Pasien extends Model
         return $this->hasMany(RekamMedisKb::class);
     }
 }
+//

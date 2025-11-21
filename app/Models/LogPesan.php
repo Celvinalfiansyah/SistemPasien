@@ -23,3 +23,4 @@ class LogPesan extends Model
         return $this->belongsTo(Pasien::class);
     }
 }
+//

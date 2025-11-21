@@ -31,3 +31,4 @@ ini ialah halaman untuk menambahkan data2 pada pasien lalu akan masuk ke halaman
 ![Scrum 3](public/images/progress3-2.png)
 
 dan ini adalah halaman untuk mengedit data2 pasien yang sudah ada supaya jika terjadi kesalahan datanya bisa diubah
+/

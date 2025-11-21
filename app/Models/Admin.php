@@ -29,3 +29,4 @@ class Admin extends Authenticatable
         return $this->belongsTo(User::class);
     }
 }
+//

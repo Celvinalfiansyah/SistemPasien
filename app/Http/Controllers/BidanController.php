@@ -63,3 +63,4 @@ class BidanController extends Controller
         return response()->json(['message' => 'Bidan deleted successfully'], 200);
     }
 }
+//

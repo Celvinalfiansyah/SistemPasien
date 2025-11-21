@@ -24,3 +24,4 @@ class RekamMedisBayiAnak extends Model
         return $this->belongsTo(Pasien::class);
     }
 }
+//

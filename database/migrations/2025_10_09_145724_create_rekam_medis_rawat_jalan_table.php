@@ -30,3 +30,4 @@ return new class extends Migration
         Schema::dropIfExists('rekam_medis_rawat_jalan');
     }
 };
+//

@@ -38,3 +38,4 @@ class RekamMedis extends Model
         return $this->belongsTo(Pasien::class);
     }
 }
+//

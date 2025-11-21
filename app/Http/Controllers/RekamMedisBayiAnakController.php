@@ -146,3 +146,4 @@ class RekamMedisBayiAnakController extends Controller
             ->with('success', 'Rekam medis bayi & anak berhasil dihapus.');
     }
 }
+//
